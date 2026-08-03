@@ -1,47 +1,5 @@
 [
  {
-  "date": "2024-07-26",
-  "size_max": 118,
-  "caught": 5,
-  "hits": 10,
-  "anglers": 5
- },
- {
-  "date": "2024-07-27",
-  "size_max": 138,
-  "caught": 7,
-  "hits": 16,
-  "anglers": 15
- },
- {
-  "date": "2024-07-28",
-  "size_max": 121,
-  "caught": 8,
-  "hits": 14,
-  "anglers": 10
- },
- {
-  "date": "2024-07-29",
-  "size_max": 130,
-  "caught": 16,
-  "hits": 26,
-  "anglers": 4
- },
- {
-  "date": "2024-07-31",
-  "size_max": 118,
-  "caught": 7,
-  "hits": 15,
-  "anglers": 8
- },
- {
-  "date": "2024-08-01",
-  "size_max": 116,
-  "caught": 13,
-  "hits": 23,
-  "anglers": 17
- },
- {
   "date": "2024-08-03",
   "size_max": 116,
   "caught": 27,
@@ -63,11 +21,25 @@
   "anglers": 14
  },
  {
+  "date": "2024-08-05",
+  "size_max": 120,
+  "caught": 7,
+  "hits": 21,
+  "anglers": 6
+ },
+ {
   "date": "2024-08-08",
   "size_max": 119,
   "caught": 21,
   "hits": 47,
   "anglers": null
+ },
+ {
+  "date": "2024-08-09",
+  "size_max": 119,
+  "caught": 11,
+  "hits": 24,
+  "anglers": 5
  },
  {
   "date": "2024-08-10",
@@ -81,6 +53,13 @@
   "size_max": 93,
   "caught": 4,
   "hits": 0,
+  "anglers": 13
+ },
+ {
+  "date": "2024-08-12",
+  "size_max": 111,
+  "caught": 7,
+  "hits": 11,
   "anglers": 13
  },
  {
@@ -110,13 +89,6 @@
   "caught": 20,
   "hits": 35,
   "anglers": 14
- },
- {
-  "date": "2024-08-19",
-  "size_max": 119,
-  "caught": 21,
-  "hits": 34,
-  "anglers": 13
  },
  {
   "date": "2024-08-19",
@@ -161,6 +133,13 @@
   "anglers": 2
  },
  {
+  "date": "2024-09-04",
+  "size_max": 110,
+  "caught": 35,
+  "hits": 48,
+  "anglers": 13
+ },
+ {
   "date": "2024-09-06",
   "size_max": 96,
   "caught": 64,
@@ -194,6 +173,13 @@
   "caught": 10,
   "hits": 18,
   "anglers": 5
+ },
+ {
+  "date": "2024-09-12",
+  "size_max": 92,
+  "caught": 10,
+  "hits": 22,
+  "anglers": 2
  },
  {
   "date": "2024-09-16",
@@ -266,6 +252,13 @@
   "anglers": 10
  },
  {
+  "date": "2025-06-08",
+  "size_max": 113,
+  "caught": 7,
+  "hits": 11,
+  "anglers": 21
+ },
+ {
   "date": "2025-06-09",
   "size_max": 114,
   "caught": 7,
@@ -322,11 +315,11 @@
   "anglers": 17
  },
  {
-  "date": "2025-06-25",
-  "size_max": 144,
+  "date": "2025-06-20",
+  "size_max": 111,
   "caught": 8,
-  "hits": 10,
-  "anglers": 2
+  "hits": 14,
+  "anglers": 12
  },
  {
   "date": "2025-06-26",
@@ -343,13 +336,6 @@
   "anglers": 12
  },
  {
-  "date": "2025-06-28",
-  "size_max": 116,
-  "caught": 8,
-  "hits": 18,
-  "anglers": 11
- },
- {
   "date": "2025-06-29",
   "size_max": 130,
   "caught": 6,
@@ -364,13 +350,6 @@
   "anglers": 10
  },
  {
-  "date": "2025-07-02",
-  "size_max": 115,
-  "caught": 12,
-  "hits": 21,
-  "anglers": 7
- },
- {
   "date": "2025-07-03",
   "size_max": 110,
   "caught": 6,
@@ -383,13 +362,6 @@
   "caught": 3,
   "hits": 6,
   "anglers": 12
- },
- {
-  "date": "2025-07-05",
-  "size_max": 116,
-  "caught": 5,
-  "hits": 13,
-  "anglers": 11
  },
  {
   "date": "2025-07-06",
@@ -476,13 +448,6 @@
   "anglers": 7
  },
  {
-  "date": "2025-07-24",
-  "size_max": 65,
-  "caught": 32,
-  "hits": 55,
-  "anglers": 6
- },
- {
   "date": "2025-07-26",
   "size_max": 65,
   "caught": 42,
@@ -497,18 +462,18 @@
   "anglers": 1
  },
  {
+  "date": "2025-08-03",
+  "size_max": 145,
+  "caught": 72,
+  "hits": 105,
+  "anglers": 12
+ },
+ {
   "date": "2025-08-04",
   "size_max": 80,
   "caught": 78,
   "hits": 125,
   "anglers": 15
- },
- {
-  "date": "2025-08-06",
-  "size_max": 110,
-  "caught": 45,
-  "hits": 64,
-  "anglers": 17
  },
  {
   "date": "2025-08-08",
@@ -540,10 +505,10 @@
  },
  {
   "date": "2025-08-15",
-  "size_max": 103,
-  "caught": 150,
-  "hits": 200,
-  "anglers": 16
+  "size_max": 75,
+  "caught": 75,
+  "hits": 110,
+  "anglers": 8
  },
  {
   "date": "2025-08-17",
@@ -603,10 +568,10 @@
  },
  {
   "date": "2025-08-27",
-  "size_max": 110,
-  "caught": 120,
-  "hits": 165,
-  "anglers": 14
+  "size_max": 94,
+  "caught": 105,
+  "hits": 140,
+  "anglers": 7
  },
  {
   "date": "2025-08-28",
@@ -635,13 +600,6 @@
   "caught": 120,
   "hits": 190,
   "anglers": 15
- },
- {
-  "date": "2025-09-03",
-  "size_max": 80,
-  "caught": 104,
-  "hits": 180,
-  "anglers": 14
  },
  {
   "date": "2025-09-03",
@@ -686,13 +644,6 @@
   "anglers": 9
  },
  {
-  "date": "2025-09-13",
-  "size_max": 55,
-  "caught": 0,
-  "hits": 0,
-  "anglers": 20
- },
- {
   "date": "2025-09-15",
   "size_max": 73,
   "caught": 21,
@@ -712,6 +663,13 @@
   "caught": 0,
   "hits": 0,
   "anglers": 2
+ },
+ {
+  "date": "2025-09-24",
+  "size_max": null,
+  "caught": 0,
+  "hits": 0,
+  "anglers": null
  },
  {
   "date": "2026-05-18",
@@ -739,13 +697,6 @@
   "size_max": null,
   "caught": 0,
   "hits": 0,
-  "anglers": null
- },
- {
-  "date": "2026-05-24",
-  "size_max": null,
-  "caught": 0,
-  "hits": 1,
   "anglers": null
  },
  {
@@ -813,13 +764,6 @@
  },
  {
   "date": "2026-06-13",
-  "size_max": 106,
-  "caught": 2,
-  "hits": 4,
-  "anglers": null
- },
- {
-  "date": "2026-06-13",
   "size_max": 118,
   "caught": 2,
   "hits": 5,
@@ -845,6 +789,13 @@
   "caught": 3,
   "hits": 4,
   "anglers": 7
+ },
+ {
+  "date": "2026-07-03",
+  "size_max": null,
+  "caught": 0,
+  "hits": 0,
+  "anglers": null
  },
  {
   "date": "2026-07-04",
@@ -882,13 +833,6 @@
   "anglers": 7
  },
  {
-  "date": "2026-07-10",
-  "size_max": 95,
-  "caught": 1,
-  "hits": 2,
-  "anglers": 10
- },
- {
   "date": "2026-07-12",
   "size_max": 131,
   "caught": 3,
@@ -901,6 +845,13 @@
   "caught": 0,
   "hits": 0,
   "anglers": null
+ },
+ {
+  "date": "2026-07-15",
+  "size_max": 120,
+  "caught": 6,
+  "hits": 15,
+  "anglers": 13
  },
  {
   "date": "2026-07-15",
@@ -917,11 +868,11 @@
   "anglers": 10
  },
  {
-  "date": "2026-07-18",
-  "size_max": 125,
-  "caught": 14,
-  "hits": 21,
-  "anglers": 12
+  "date": "2026-07-19",
+  "size_max": 128,
+  "caught": 6,
+  "hits": 10,
+  "anglers": 21
  },
  {
   "date": "2026-07-20",
@@ -945,6 +896,13 @@
   "anglers": 13
  },
  {
+  "date": "2026-07-23",
+  "size_max": 130,
+  "caught": 31,
+  "hits": 54,
+  "anglers": 5
+ },
+ {
   "date": "2026-07-25",
   "size_max": 140,
   "caught": 85,
@@ -957,5 +915,33 @@
   "caught": 68,
   "hits": 105,
   "anglers": 19
+ },
+ {
+  "date": "2026-07-30",
+  "size_max": 74,
+  "caught": 24,
+  "hits": 58,
+  "anglers": 14
+ },
+ {
+  "date": "2026-07-30",
+  "size_max": 102,
+  "caught": 10,
+  "hits": 18,
+  "anglers": 11
+ },
+ {
+  "date": "2026-08-02",
+  "size_max": 128,
+  "caught": 188,
+  "hits": 214,
+  "anglers": 10
+ },
+ {
+  "date": "2026-08-03",
+  "size_max": 72,
+  "caught": 42,
+  "hits": 74,
+  "anglers": 7
  }
 ]
