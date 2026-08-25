@@ -9,7 +9,7 @@ GitHub Actions から定期実行する想定。失敗時は既存 model.json �
 """
 import re, html, json, time, sys, urllib.request, datetime
 from collections import defaultdict
-from statistics import mean, median
+from statistics import mean
 
 UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36"
 LISTAPI = "https://www.shouzaburo.com/api/getChokaListPage/"
@@ -99,7 +99,7 @@ def binmean(rows, key, edges):
                     "avg": round(mean(g), 1) if g else None})
     return out
 
-def build_model(catch, sst, wave, wind):
+def build_model(catch, sst):
     byd = defaultdict(lambda: {"caught": 0, "anglers": 0, "size": 0})
     for r in catch:
         b = byd[r['date']]; b["caught"] += r['caught'] or 0
@@ -160,8 +160,8 @@ def main():
         print("釣果0件取得 → 既存model.jsonを維持して終了", file=sys.stderr)
         sys.exit(0)
     print(f"  シイラ船 {len(catch)}件 ({catch[0]['date']}〜{catch[-1]['date']})")
-    sst, wave, wind = fetch_conditions(catch[0]['date'], today.isoformat())
-    model = build_model(catch, sst, wave, wind)
+    sst, _wave, _wind = fetch_conditions(catch[0]['date'], today.isoformat())
+    model = build_model(catch, sst)
     json.dump(catch, open("shiira_catch.json", "w"), ensure_ascii=False, indent=1)
     json.dump(model, open("model.json", "w"), ensure_ascii=False, indent=1)
     print(f"完了: 出船{model['history']['days']}日 釣果率{model['history']['catch_rate']} "
