@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 """
 庄三郎丸 シイラ船 釣果モデル ビルダー
-  1. 公式釣果API から過去2年のルアーシイラ船を取得
-  2. Open-Meteo アーカイブで相模湾平塚沖の海況（SST・波高・風）を取得
-  3. 釣果×海況を相関分析し、判定モデル model.json を生成
+  1. 公式釣果API からルアーシイラ船を取得（実行日から動的に過去2年へクリップ）
+  2. Open-Meteo marine で相模湾平塚沖の日別SSTを取得
+  3. 釣果×SSTを相関分析し、判定モデル model.json を生成
 GitHub Actions から定期実行する想定。失敗時は既存 model.json を維持。
 """
 import re, html, json, time, sys, urllib.request, datetime
@@ -64,25 +64,25 @@ def scrape(cutoff, limit=260):
         p += 1
         time.sleep(0.4)
     recs.sort(key=lambda r: r["date"])
+    # ページ送りは「cutoffより古い日付が現れたら停止」だが、その最終ページには
+    # cutoffより前の釣果も含まれる。分析範囲を厳密に「過去2年」へ揃えるため明示的にクリップする。
+    recs = [r for r in recs if r["date"] >= cutoff]
     return recs
 
-# ───────── 2. 海況アーカイブ ─────────
+# ───────── 2. 海況（日別SST） ─────────
 def gj(u): return json.load(urllib.request.urlopen(u, timeout=60))
 
-def fetch_conditions(start, end):
+def fetch_sst(start, end):
+    """相模湾平塚沖の日別平均SST {YYYY-MM-DD: 平均水温}。
+    分析で実際に使うのはSSTのみ（風・波のスコア曲線は定数）。marine-apiだけを叩く。"""
     mar = gj(f"https://marine-api.open-meteo.com/v1/marine?latitude={LAT}&longitude={LON}"
-             "&hourly=sea_surface_temperature&daily=wave_height_max"
+             "&hourly=sea_surface_temperature"
              f"&start_date={start}&end_date={end}&timezone=Asia%2FTokyo")
-    wx = gj(f"https://archive-api.open-meteo.com/v1/archive?latitude={LAT}&longitude={LON}"
-            "&daily=wind_speed_10m_max,temperature_2m_mean"
-            f"&start_date={start}&end_date={end}&timezone=Asia%2FTokyo")
     sst = defaultdict(list)
     for t, v in zip(mar['hourly']['time'], mar['hourly']['sea_surface_temperature']):
-        if v is not None: sst[t[:10]].append(v)
-    sst = {d: mean(v) for d, v in sst.items()}
-    wave = dict(zip(mar['daily']['time'], mar['daily']['wave_height_max']))
-    wind = dict(zip(wx['daily']['time'], wx['daily']['wind_speed_10m_max']))
-    return sst, wave, wind
+        if v is not None:
+            sst[t[:10]].append(v)
+    return {d: mean(v) for d, v in sst.items()}
 
 # ───────── 3. 分析 → model.json ─────────
 def corr(xs, ys):
@@ -99,7 +99,7 @@ def binmean(rows, key, edges):
                     "avg": round(mean(g), 1) if g else None})
     return out
 
-def build_model(catch, sst):
+def build_model(catch, sst, cutoff=None):
     byd = defaultdict(lambda: {"caught": 0, "anglers": 0, "size": 0})
     for r in catch:
         b = byd[r['date']]; b["caught"] += r['caught'] or 0
@@ -118,6 +118,8 @@ def build_model(catch, sst):
         "spot": {"name": "相模湾・平塚沖（庄三郎丸）", "lat": LAT, "lon": LON},
         "source": "https://www.shouzaburo.com/category/Choka/",
         "history": {
+            "window": "実行日から過去2年",
+            "cutoff": cutoff or days[0],
             "period": [days[0], days[-1]], "trips": len(catch), "days": len(days),
             "catch_rate": round(len(cdays)/len(days), 2),
             "total_caught": sum(byd[d]["caught"] for d in days),
@@ -151,17 +153,24 @@ def _avg(rows, sst_min):
     g = [r["cpa"] for r in rows if r["sst"] >= sst_min]
     return round(mean(g), 1) if g else "—"
 
+def two_years_ago(today):
+    """today のちょうど2年前。2/29 は2年前に存在しないので 2/28 に丸める。"""
+    try:
+        return today.replace(year=today.year - 2)
+    except ValueError:
+        return today.replace(year=today.year - 2, month=2, day=28)
+
 def main():
     today = datetime.date.today()
-    cutoff = today.replace(year=today.year - 2).isoformat()
-    print(f"スクレイプ開始 cutoff={cutoff}")
+    cutoff = two_years_ago(today).isoformat()
+    print(f"スクレイプ開始 cutoff={cutoff}（実行日から動的に過去2年）")
     catch = scrape(cutoff)
     if not catch:
         print("釣果0件取得 → 既存model.jsonを維持して終了", file=sys.stderr)
         sys.exit(0)
     print(f"  シイラ船 {len(catch)}件 ({catch[0]['date']}〜{catch[-1]['date']})")
-    sst, _wave, _wind = fetch_conditions(catch[0]['date'], today.isoformat())
-    model = build_model(catch, sst)
+    sst = fetch_sst(cutoff, today.isoformat())
+    model = build_model(catch, sst, cutoff)
     json.dump(catch, open("shiira_catch.json", "w"), ensure_ascii=False, indent=1)
     json.dump(model, open("model.json", "w"), ensure_ascii=False, indent=1)
     print(f"完了: 出船{model['history']['days']}日 釣果率{model['history']['catch_rate']} "
