@@ -118,7 +118,7 @@ async function load(){
       const f_wd=piecewise(S.wind_curve,wd);
       const f_wv=piecewise(S.wave_curve,wv??1.0);
       const score=Math.round(100*(f_sst*w.sst+f_sea*w.season+f_tr*w.trend+f_wd*w.wind+f_wv*w.wave)*10)/10;
-      let dep='ok',depTxt='出船可';
+      let dep='ok',depTxt='出船可能性高';
       if(wv!=null&&wv>=S.deploy_cancel_wave){dep='cancel';depTxt='出船中止濃厚';}
       else if(wv!=null&&wv>=S.deploy_caution_wave){dep='caution';depTxt='出船注意';}
       return {d,st,wv,wd,score,rank:rankOf(score),dep,depTxt};
@@ -140,7 +140,7 @@ function render(rows){
     return `<div class="barrow"><span class="lab">${b.range.split('–')[0]}月</span>
       <span class="bx"><i style="width:${pct}%"></i></span><span class="nm">${b.avg??'-'}本</span></div>`;}).join('');
 
-  // TOP3（出船可）
+  // TOP3（出船可能性高）
   const top3=[...rows].filter(r=>r.dep==='ok').sort((a,b)=>b.score-a.score).slice(0,3);
 
   let html=`
@@ -159,11 +159,11 @@ function render(rows){
     <ul class="ins">${MODEL.insights.map(i=>`<li>${i}</li>`).join('')}</ul>
   </div>
 
-  <div class="card"><h2>🏆 推奨TOP3（出船可・10日内）</h2>
+  <div class="card"><h2>🏆 推奨TOP3（出船可能性高・10日内）</h2>
     <div class="top3">${top3.map((r,i)=>`<div class="top" style="border-color:${c(r.rank)}">
       <div class="rk" style="color:${c(r.rank)}">${r.rank}</div>
       <div class="dt">${fmtD(r.d)}</div>
-      <div class="sc">スコア ${r.score}<br>SST${r.st?.toFixed(1)}℃</div></div>`).join('')||'<div class="sc">出船可の日がありません</div>'}</div>
+      <div class="sc">スコア ${r.score}<br>SST${r.st?.toFixed(1)}℃</div></div>`).join('')||'<div class="sc">出船可能性が高い日がありません</div>'}</div>
   </div>
 
   <div class="card"><h2>📅 10日先ランキング</h2><div class="grid">`;
