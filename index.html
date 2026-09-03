@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>庄三郎丸 シイラ船 釣行推奨ランキング</title>
+<title>相模湾・平塚港 ルアーシイラ船 釣行推奨ランキング</title>
 <style>
   :root{
     --bg:#eef2f6; --panel:#ffffff; --panel2:#f1f5f9; --line:#d7e0e8;
@@ -61,13 +61,13 @@
 </head>
 <body>
 <div class="wrap">
-  <header><span style="font-size:1.5rem">🎣</span><h1>庄三郎丸 シイラ船 釣行推奨ランキング</h1></header>
+  <header><span style="font-size:1.5rem">🎣</span><h1>相模湾・平塚港 ルアーシイラ船 釣行推奨ランキング</h1></header>
   <div class="sub" id="sub">相模湾・平塚沖 / 過去2年の釣果×海況を統計分析し、10日先までをランク付け</div>
   <div id="content"><div class="loading">📡 予報を取得して分析中…</div></div>
-  <footer>当サイトは庄三郎丸とは無関係の個人が作成した非公式ツールです。<br>
-  釣果データ出典: 庄三郎丸 公式釣果（過去2年分を取得・統計分析）／ 海況・気象データ: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> Marine・予報
+  <footer>当サイトは運航事業者とは無関係の個人が学習目的で作成した非公式ツールです。特定の遊漁船の勧誘・評価を意図しません。<br>
+  釣果データ: 相模湾・平塚港のルアーシイラ船の公開釣果情報を過去2年分取得し統計分析／ 海況・気象データ: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> Marine・予報
   (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>)。<br>
-  ランク・スコア・「波予報」表示は、過去の傾向と Open-Meteo の予報に基づく<b>推測</b>です。釣果・出船・当日の海況を保証・示唆するものではありません。実際の出船可否と海況は必ず庄三郎丸の公式情報でご確認ください。</footer>
+  ランク・スコア・「波予報」表示は、過去の傾向と Open-Meteo の予報に基づく<b>推測</b>です。釣果・出船・当日の海況を保証・示唆するものではありません。実際の出船可否と海況は必ず運航事業者の公式情報でご確認ください。</footer>
 </div>
 
 <script>
@@ -179,7 +179,7 @@ function render(rows){
   html+=`</div></div>`;
   document.getElementById('content').innerHTML=html;
   document.getElementById('sub').innerHTML=
-    `相模湾・平塚沖 / 過去2年の釣果×海況を分析 ・ <a href="${MODEL.source}" target="_blank">庄三郎丸 釣果 ↗</a> ・ 更新 ${new Date().toLocaleString('ja-JP')}`;
+    `相模湾・平塚沖 / 過去2年の釣果×海況を統計分析 ・ 更新 ${new Date().toLocaleString('ja-JP')}`;
 }
 load();
 </script>

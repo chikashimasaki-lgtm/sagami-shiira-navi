@@ -1,12 +1,11 @@
 {
- "title": "庄三郎丸 ルアーシイラ船 釣行推奨ランキング",
+ "title": "相模湾・平塚港 ルアーシイラ船 釣行推奨ランキング",
  "generated": "2026-09-04",
  "spot": {
-  "name": "相模湾・平塚沖（庄三郎丸）",
+  "name": "相模湾・平塚沖",
   "lat": 35.27,
   "lon": 139.35
  },
- "source": "https://www.shouzaburo.com/category/Choka/",
  "history": {
   "window": "実行日から過去2年",
   "cutoff": "2024-09-04",

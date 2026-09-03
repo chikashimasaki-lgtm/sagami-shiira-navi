@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-庄三郎丸 シイラ船 釣果モデル ビルダー
-  1. 公式釣果API からルアーシイラ船を取得（実行日から動的に過去2年へクリップ）
+相模湾・平塚港 ルアーシイラ船 釣果モデル ビルダー
+  1. 対象船の公開釣果ページからシイラ船の実績を取得（実行日から動的に過去2年へクリップ）
   2. Open-Meteo marine で相模湾平塚沖の日別SSTを取得
   3. 釣果×SSTを相関分析し、判定モデル model.json を生成
 GitHub Actions から定期実行する想定。失敗時は既存 model.json を維持。
@@ -12,6 +12,7 @@ from collections import defaultdict
 from statistics import mean
 
 UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36"
+# 取得元（相模湾・平塚港のルアーシイラ船の公開釣果ページ）。ビルド時のみ参照し、公開物には事業者名を出さない。
 LISTAPI = "https://www.shouzaburo.com/api/getChokaListPage/"
 LAT, LON = 35.27, 139.35
 Z2H = str.maketrans("０１２３４５６７８９", "0123456789")
@@ -113,10 +114,9 @@ def build_model(catch, sst, cutoff=None):
            "month": corr([r["month"] for r in rows], [r["cpa"] for r in rows])}
 
     return {
-        "title": "庄三郎丸 ルアーシイラ船 釣行推奨ランキング",
+        "title": "相模湾・平塚港 ルアーシイラ船 釣行推奨ランキング",
         "generated": datetime.date.today().isoformat(),
-        "spot": {"name": "相模湾・平塚沖（庄三郎丸）", "lat": LAT, "lon": LON},
-        "source": "https://www.shouzaburo.com/category/Choka/",
+        "spot": {"name": "相模湾・平塚沖", "lat": LAT, "lon": LON},
         "history": {
             "window": "実行日から過去2年",
             "cutoff": cutoff or days[0],
