@@ -62,11 +62,12 @@
 <body>
 <div class="wrap">
   <header><span style="font-size:1.5rem">🎣</span><h1>庄三郎丸 シイラ船 釣行推奨ランキング</h1></header>
-  <div class="sub" id="sub">相模湾・平塚沖 / 過去2年の釣果×海況をAI分析し、10日先までをランク付け</div>
+  <div class="sub" id="sub">相模湾・平塚沖 / 過去2年の釣果×海況を統計分析し、10日先までをランク付け</div>
   <div id="content"><div class="loading">📡 予報を取得して分析中…</div></div>
-  <footer>釣果データ出典: 庄三郎丸 公式釣果（過去2年スクレイプ・分析）／ 海況データ: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> Marine・気象予報
+  <footer>当サイトは庄三郎丸とは無関係の個人が作成した非公式ツールです。<br>
+  釣果データ出典: 庄三郎丸 公式釣果（過去2年分を取得・統計分析）／ 海況・気象データ: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> Marine・予報
   (<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>)。<br>
-  ランクは過去傾向に基づく推測であり釣果・出船を保証しません。出船可否は必ず船宿の公式情報をご確認ください。</footer>
+  ランク・スコア・「波予報」表示は、過去の傾向と Open-Meteo の予報に基づく<b>推測</b>です。釣果・出船・当日の海況を保証・示唆するものではありません。実際の出船可否と海況は必ず庄三郎丸の公式情報でご確認ください。</footer>
 </div>
 
 <script>
@@ -118,9 +119,9 @@ async function load(){
       const f_wd=piecewise(S.wind_curve,wd);
       const f_wv=piecewise(S.wave_curve,wv??1.0);
       const score=Math.round(100*(f_sst*w.sst+f_sea*w.season+f_tr*w.trend+f_wd*w.wind+f_wv*w.wave)*10)/10;
-      let dep='ok',depTxt='出船可能性高';
-      if(wv!=null&&wv>=S.deploy_cancel_wave){dep='cancel';depTxt='出船中止濃厚';}
-      else if(wv!=null&&wv>=S.deploy_caution_wave){dep='caution';depTxt='出船注意';}
+      let dep='ok',depTxt='波予報 穏やか';
+      if(wv!=null&&wv>=S.deploy_cancel_wave){dep='cancel';depTxt='波予報 荒天級';}
+      else if(wv!=null&&wv>=S.deploy_caution_wave){dep='caution';depTxt='波予報 やや高い';}
       return {d,st,wv,wd,score,rank:rankOf(score),dep,depTxt};
     });
     render(rows);
@@ -140,7 +141,7 @@ function render(rows){
     return `<div class="barrow"><span class="lab">${b.range.split('–')[0]}月</span>
       <span class="bx"><i style="width:${pct}%"></i></span><span class="nm">${b.avg??'-'}本</span></div>`;}).join('');
 
-  // TOP3（出船可能性高）
+  // TOP3（波予報が穏やかな日）
   const top3=[...rows].filter(r=>r.dep==='ok').sort((a,b)=>b.score-a.score).slice(0,3);
 
   let html=`
@@ -159,11 +160,11 @@ function render(rows){
     <ul class="ins">${MODEL.insights.map(i=>`<li>${i}</li>`).join('')}</ul>
   </div>
 
-  <div class="card"><h2>🏆 推奨TOP3（出船可能性高・10日内）</h2>
+  <div class="card"><h2>🏆 推奨TOP3（波予報 穏やか・10日内）</h2>
     <div class="top3">${top3.map((r,i)=>`<div class="top" style="border-color:${c(r.rank)}">
       <div class="rk" style="color:${c(r.rank)}">${r.rank}</div>
       <div class="dt">${fmtD(r.d)}</div>
-      <div class="sc">スコア ${r.score}<br>SST${r.st?.toFixed(1)}℃</div></div>`).join('')||'<div class="sc">出船可能性が高い日がありません</div>'}</div>
+      <div class="sc">スコア ${r.score}<br>SST${r.st?.toFixed(1)}℃</div></div>`).join('')||'<div class="sc">波予報が穏やかな日がありません</div>'}</div>
   </div>
 
   <div class="card"><h2>📅 10日先ランキング</h2><div class="grid">`;
