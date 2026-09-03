@@ -7,13 +7,16 @@
   3. 釣果×SSTを相関分析し、判定モデル model.json を生成
 GitHub Actions から定期実行する想定。失敗時は既存 model.json を維持。
 """
-import re, html, json, time, sys, urllib.request, datetime
+import re, html, json, time, sys, os, urllib.request, datetime
 from collections import defaultdict
 from statistics import mean
 
 UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124.0 Safari/537.36"
-# 取得元（相模湾・平塚港のルアーシイラ船の公開釣果ページ）。ビルド時のみ参照し、公開物には事業者名を出さない。
-LISTAPI = "https://www.shouzaburo.com/api/getChokaListPage/"
+# 取得元（相模湾・平塚港のルアーシイラ船の公開釣果リストAPI）。
+# 事業者名を公開物・ソースに残さないため URL は環境変数で渡す。
+#   GitHub Actions: リポジトリ Secret CATCH_LIST_API
+#   ローカル実行:   CATCH_LIST_API=... python3 build_model.py
+LISTAPI = os.environ.get("CATCH_LIST_API", "").strip()
 LAT, LON = 35.27, 139.35
 Z2H = str.maketrans("０１２３４５６７８９", "0123456789")
 
@@ -161,6 +164,10 @@ def two_years_ago(today):
         return today.replace(year=today.year - 2, month=2, day=28)
 
 def main():
+    if not LISTAPI:
+        print("環境変数 CATCH_LIST_API が未設定です（取得元の釣果リストAPI URL）。"
+              "既存 model.json を維持して終了。", file=sys.stderr)
+        sys.exit(0)
     today = datetime.date.today()
     cutoff = two_years_ago(today).isoformat()
     print(f"スクレイプ開始 cutoff={cutoff}（実行日から動的に過去2年）")

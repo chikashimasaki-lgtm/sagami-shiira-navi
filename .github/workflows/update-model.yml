@@ -22,8 +22,10 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: モデル再生成（釣果スクレイプ＋海況分析）
+      - name: モデル再生成（釣果取得＋海況分析）
         run: python3 build_model.py
+        env:
+          CATCH_LIST_API: ${{ secrets.CATCH_LIST_API }}
 
       - name: 差分があればコミット
         run: |
