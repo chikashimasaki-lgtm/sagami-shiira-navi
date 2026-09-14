@@ -1,33 +1,5 @@
 [
  {
-  "date": "2024-09-08",
-  "size_max": 115,
-  "caught": 43,
-  "hits": 62,
-  "anglers": 7
- },
- {
-  "date": "2024-09-09",
-  "size_max": 90,
-  "caught": 59,
-  "hits": 88,
-  "anglers": 12
- },
- {
-  "date": "2024-09-11",
-  "size_max": 60,
-  "caught": 10,
-  "hits": 18,
-  "anglers": 5
- },
- {
-  "date": "2024-09-12",
-  "size_max": 92,
-  "caught": 10,
-  "hits": 22,
-  "anglers": 2
- },
- {
   "date": "2024-09-16",
   "size_max": 90,
   "caught": 25,
@@ -957,5 +929,12 @@
   "caught": 38,
   "hits": 72,
   "anglers": 4
+ },
+ {
+  "date": "2026-09-14",
+  "size_max": 126,
+  "caught": 46,
+  "hits": 75,
+  "anglers": 5
  }
 ]
