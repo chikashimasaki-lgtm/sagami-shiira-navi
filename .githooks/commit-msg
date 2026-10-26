@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# コミットメッセージの署名行検査。本体は gas-shared/tools/hooks/commit-msg（単一ソース）。
+# gas-shared が見つからないときは黙って通す。
+HOOK="$HOME/projects/gas-shared/tools/hooks/commit-msg"
+[ -x "$HOOK" ] && exec "$HOOK" "$@"
+exit 0
