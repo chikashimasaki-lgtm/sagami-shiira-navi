@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# コミット前: 個人情報・パスワードの混入検査 + リポのテスト実行。
+# 本体は gas-shared/tools/hooks/pre-commit（単一ソース）。
+#
+# gas-shared が見つからないときは **黙って通す**（従来の scan-secrets のみ）。
+# フックが原因でコミットできなくなるほうが害が大きく、CI 側でも同じ検査をしているため。
+HOOK="$HOME/projects/gas-shared/tools/hooks/pre-commit"
+[ -x "$HOOK" ] && exec "$HOOK" "$@"
+SCAN="$HOME/projects/gas-shared/tools/scan-secrets.sh"
+[ -x "$SCAN" ] || exit 0
+exec "$SCAN" --quiet
